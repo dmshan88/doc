@@ -90,10 +90,14 @@ git init
 增加文件
 git add *
 git commit -m "***"
-git remote add origin https://github.com/dmshan88/****.git
+git remote add origin git@github.com:dmshan88/*****.git
 git push -u origin master
 
 
+git config --global push.default simple
+
+git checkout -b dev
+git push --set-upstream origin dev
 
 
 
