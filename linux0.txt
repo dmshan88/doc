@@ -1,0 +1,177 @@
+﻿查看安装的所有软件
+dpkg -l | grep ftp
+查看服务列表代码
+sudo service --status-all
+sudo initctl list
+xx服务运行状态
+service vsftpd status
+
+apt
+apt-get install
+apt-cache search
+
+tar
+将整个 /etc 目录下的文件全部打包成为 /tmp/etc.tar
+tar -cvf /tmp/etc.tar /etc <==仅打包，不压缩！
+tar -zcvf /tmp/etc.tar.gz /etc <==打包后，以 gzip 压缩
+tar -jcvf /tmp/etc.tar.bz2 /etc <==打包后，以 bzip2 压缩
+查阅上述 /tmp/etc.tar.gz 文件内有哪些文件？
+tar -ztvf /tmp/etc.tar.gz
+将 /tmp/etc.tar.gz 文件解压缩在 /usr/local/src 底下
+cd /usr/local/src
+tar -zxvf /tmp/etc.tar.gz
+
+samba 配置 /etc/samba/smb.conf
+增加用户 sudo useradd 
+增加用户(目录)sudo adduser
+增加密码 sudo smbpasswd -a
+激活用户 sudo smbpasswd -e
+查看用户 sudo pdbedit -L
+注释掉 map to guest = bad user
+重启samba服务 sudo service smbd restart
+测试 smbclient -L //localhost/share
+
+
+mysql
+登录 mysql -u root -p
+创建用户
+insert into mysql.user(Host,User,Password) values("localhost","test",password("1234"));
+或者 create user 'usrabc'@'%' identified by 'usrabc';
+修改用户名update mysql.user set user='shan' where user='root';
+flush privileges;
+创建一个数据库(testDB)：
+create database testDB  character set utf8;
+授权所有权限：
+GRANT ALL ON *.* TO 'shan'@'%' IDENTIFIED BY '1' WITH GRANT OPTION;
+授权test用户拥有所有数据库的某些权限： 　 
+grant select,insert,delete,update,create,drop on *.* to test@"%" identified by "1234";
+绑定本机 /etc/mysql/my.cnf 
+service mysqld restart
+查看数据库列表：show databases;
+查看用户状态：select host,user from mysql.user;
+查看数据库中具体某个用户的权限 show grants for 'cactiuser'@'%'; 
+删除用户 drop user newuser;
+导出整个数据库
+mysqldump -u dbuser -p dbname > dbname.sql
+导入数据库use dbname; source d:/dbname.sql
+清除缓存 mysqladmin  -u  root  -p  flush-hosts
+
+mysqldump -h 10.1.10.20 -u shan -p -A >remote.sql
+mysql -u shan -p <remote.sql
+主从
+my.cnf
+server-id=1  
+log-bin=master-bin
+主
+create user repl; 
+GRANT REPLICATION SLAVE ON *.* TO 'repl'@'192.168.0.%' IDENTIFIED BY 'mysql';
+flush table with read lock;
+show master status;
+从
+change master to master_host='10.1.20.172',master_user='repl',master_password='mysql',master_log_file='mysql-bin.000001',master_log_pos=107;
+start slave; 
+主
+unlock tables;
+
+7z
+sudo apt-get install p7zip-full
+
+apache
+网站目录 /var/www/html/index.html
+配置文件/etc/apache2/apache2.conf 
+/etc/apache2/sites-available/000-default.conf
+	DocumentRoot /var/www/ccy  
+	<Directory /var/www/ccy>  
+		Options Indexes FollowSymLinks
+		AllowOverride None  
+		Require all granted
+	</Directory> 
+重启服务 /etc/init.d/apache2 restart
+		service apache2 restart
+
+php
+扩展 php5-gd php5-mongo php5-sqlite php-pear php5-dev
+pecl安装stats :sudo pecl install stats ,/etc/php5/apache2/php.ini添加extension=stats.so
+php-mongodb
+pkg-config libpcre3-dev
+pecl install mongodb-1.1.10
+
+ubuntu-desktop --no-install-recommends
+terminial
+indicator-session indicator-appmenu
+dconf-editor
+subversion rabbitcvs mysqlworkbench
+virtualbox
+putty
+fcitx-googlepinyin
+ibus-pinyin
+server 安装desktop 乱码
+sudo apt-get install xfonts-wqy
+sudo add-apt-repository ppa:webupd8team/sublime-text-3  
+sudo apt-get update  
+sudo apt-get install sublime-text-installer 
+cifs-utils
+
+ftp
+vsftpd
+sudo service vsftpd restart
+
+
+svn
+安装sudo apt-get install subversion
+svn cat -- 显示特定版本的某文件内容。
+svn list -- 显示一个目录或某一版本存在的文件列表。
+svn log -- 显示svn 的版本log，含作者、日期、路径等。
+svn diff -- 显示特定修改的行级详细信息
+svn add file|dir -- 添加文件或整个目录
+
+svn checkout -- 获取svn代码
+svn commit  -- 提交本地修改代码
+svn status    -- 查看本地修改代码情况：修改的或本地独有的文件详细信息
+svn merge   -- 合并svn和本地代码
+svn revert   -- 撤销本地修改代码
+svn resolve -- 合并冲突代码
+svn help [command] -- 查看svn帮助，或特定命令帮助
+创建版本仓库
+sudo svnadmin create /srv/svn/xxx
+svnserve -d -r /home/svn
+
+远程桌面
+rdesktop
+iso 
+sudo dd if=*.iso of=/sdb
+
+网卡配置
+/etc/network/interfaces
+sudo ifdown eth0
+sudo ifup eth0
+
+nagios
+
+composer
+curl -sS https://getcomposer.org/installer | php
+php composer.phar install
+cc450dab0e341908c6cbfafaa75d2c7d96beda3c
+
+mongo
+export LC_ALL=C
+
+
+apt-get install ssl-cert
+make-ssl-cert生成证书的方法有两种，一种是根据生成按工具默认的方式生成，一种是按模板文件生成。
+#默认的方式生成
+make-ssl-cert generate-default-snakeoil
+注：默认方式生成的公钥(证书)在/etc/ssl/certs/ssl-cert-snakeoil.pem，私钥在/etc/ssl/private/ssl-cert-snakeoil.key。
+#按模板文件生成
+make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/ssl/private/apache2.pem
+openssl req -new -x509 -days 3650 -nodes -out a.pem -keyout b.key
+
+windows
+openssl genrsa 1024 >server.key
+openssl req -new -config openssl.cnf -key server.key >server.csr
+openssl req -x509 -days 5000 -config openssl.cnf -key server.key -in server.csr >server.crt
+
+定时任务
+crontab -e
+
+
