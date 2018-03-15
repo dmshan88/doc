@@ -1,0 +1,99 @@
+###更新源 
+打开/etc/apt/sources.list 替换为mirrors.aliyun.com
+
+deb https://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb-src https://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
+deb https://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src https://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
+
+deb https://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src https://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
+		
+deb https://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src https://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
+
+## Not recommended
+# deb https://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+# deb-src https://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
+
+###安装mysql
+sudo apt-get install mysql-server-5.5
+
+###安装php
+sudo apt-get install php5-cgi php5-cli
+
+###安装apache
+sudo apt-get install apache2 libapache2-mod-php5
+####更改网站目录
+sudo nano /etc/apache2/sites-enabled/000-default.conf
+更改内容
+	DocumentRoot /home/s/web/www  
+	<Directory /home/s/web/www>  
+		Options Indexes FollowSymLinks
+		AllowOverride None  
+		Require all granted
+	</Directory> 
+重启服务 sudo service apache2 restart
+		
+
+###安装composer
+下载 wget https://getcomposer.org/download/1.6.3/composer.phar
+sudo cp composer.phar /usr/local/bin/composer
+sudo chmod 755 /usr/local/bin/composer
+
+####composer安装thinkphp3.2.3
+composer require topthink/thinkphp
+
+###安装git
+sudo apt-get install git
+git config --global user.email "dm_shan@163.com"
+git config --global user.name "dmshan88"
+
+####git ssh
+ssh-keygen -t rsa -C "dm_shan@163.com"
+.ssh/id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpQIBAAKCAQEAtHH+AjtZWsr/hN1EFaln/HioMQfRZ6eB4HgwDayZxPMpS8k9
+81+kH/0tNO7iw/mGrDf7W5aGM5d84tQmlbDMvJQ36QObALfxe53et7FZWfQ3HNxc
+oTiIPI6fooTDD70+9gMQmjLi/kD26aVLEK4/7cB+ROidsr9ANgWk9n3TDmpcXPqe
+ae9HuxQVijjjCecc51ZBrnwBlE9nDwip5EjlFPHF+GW7uq80+mG0TEuz0EcZlj7I
+PK24t4BFtQsddvwPKHsp9bl6hOlScVHisTY+VJT4nN/RwJuq9xp+H26fSHWYjNMu
+WDWBRNZRLKv3CwNV0i3CtIdsu3pL/zZoEq6Q/wIDAQABAoIBAQCLrIUK4ze6UNHS
+3Zc7EUN9qUO/mCaejom44C+KFiV8zyATGrYKcejQHiBlDdiYC8kT+81kSrKcstEn
+n0IysoT4H97bTkAoIToaDsx78hqQx7n1bBmDbgf+oAOvQAbhYwKeWSb7xRHx7wVx
+O9JMGiU/+rWCz3BqESI57sqPRjwdtifOwoWvaNZDSuJqX17x4I0aMZy+EIjamEP5
+SlT2Yv2ySiO8xZ6FamM8695wJbL/9RGHilIFwu2Sy0ILtjLYY2ybl8l//Bhr8Cde
+E7bOQu0egpf3xPThnNjMDTQOxWz7mhNyFCP0zoiDWkTzohb3imlt2rc+9k0qMH/B
+zJNoeh3hAoGBAN7UDaojZmAoglXhfehFg0TuJJSe+Xeng9LJtY3H86lQfBVR5MY4
+3uMhr8ZAIlOhVwZJ1jufhzhAkizWsmy85iNO8pRYWH78W536ROfjvWSKrQ0ceKAD
+GZSieCZUdOHfxawSX9+LpCDUW+1S+jujZlKig+MDaDVCHaPk638SthsRAoGBAM9O
+uoSbzn3J7DzQa+z9ObIumg56dmCWzbdLk1wOKa6yw0N2HelQk4Wr8qdKoW82nPF1
+iZm6puvngaumIhM8M4TBm0Asx7C66Kzed3W2o2uiF1LYbuwRBIpNjx7dQud3Ny7K
+5w//IreWLQwJvbWQFrou68eSVLko3PO/QOMMxUsPAoGBAJFtLA3iVKplRcrvA9FX
+rLiMA+vLZV0mQu6LHqaN3QSftpvjer+z1iO+lI16xex22+kKv3riPsoDumLxLDmz
+fy+EEuWmUvttkA2mjNoa1DyOFSr9bexgmY1cC7ZYYIAaH1SSGWg4JsIWVnipMw9B
+MUK1NgYu7w/zOo0AloG0oI1BAoGAPK7fClJRb6Db9jFMZmL5sJ7TmclfPYbnUPBe
+gmPi77CEWAsLVnCvvkFHFpFSECv8ZPHzBX0Nv6BU5NoMv3Sv3/yMZYy2J5WO5ot4
+jIyZ6bfY+/c/APs6SQHLE03Rd8/950SdvqEAmJztMsjnL26uOHHjstey1UCQ7Qjf
+BZeHaSECgYEAn4C3MlxEcAgwxmd7shg9so4/TuzjHc7j7MzkwLfioqLAOicwxHYI
+CxDAn3avlUL/sPm+afZ+xZx/YURrZ6m0nrFV995Qo290Y2q0QR/NT+mMb/mEo8Rb
+IbF/oUh4ekd5f3J8mt7PpsKSawcu5+YWjeNAu27eNWn62WX2unYWUn8=
+-----END RSA PRIVATE KEY-----
+
+.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0cf4CO1layv+E3UQVqWf8eKgxB9Fnp4HgeDANrJnE8ylLyT3zX6Qf/S007uLD+YasN/tbloYzl3zi1CaVsMy8lDfpA5sAt/F7nd63sVlZ9Dcc3FyhOIg8jp+ihMMPvT72AxCaMuL+QPbppUsQrj/twH5E6J2yv0A2BaT2fdMOalxc+p5p70e7FBWKOOMJ5xznVkGufAGUT2cPCKnkSOUU8cX4Zbu6rzT6YbRMS7PQRxmWPsg8rbi3gEW1Cx12/A8oeyn1uXqE6VJxUeKxNj5UlPic39HAm6r3Gn4fbp9IdZiM0y5YNYFE1lEsq/cLA1XSLcK0h2y7ekv/NmgSrpD/ dm_shan@163.com
+
+###git 操作
+mkdir test
+cd test
+git init
+增加文件
+git add *
+git commit -m "***"
+git remote add origin https://github.com/dmshan88/****.git
+git push -u origin master
+
+
+
+
+
