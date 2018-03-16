@@ -44,6 +44,12 @@ sudo chmod 755 /usr/local/bin/composer
 ####composer安装thinkphp3.2.3
 composer require topthink/thinkphp
 
+####composer安装yii2
+composer global require "fxp/composer-asset-plugin:^1.4.1"
+composer require yiisoft/yii2
+token:
+33f9246f978a3cd86305e66310aa3567c24b22cc
+
 ###安装git
 sudo apt-get install git
 git config --global user.email "dm_shan@163.com"
@@ -52,6 +58,7 @@ git config --global user.name "dmshan88"
 ####git ssh
 ssh-keygen -t rsa -C "dm_shan@163.com"
 .ssh/id_rsa
+chmod 600 id_rsa
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpQIBAAKCAQEAtHH+AjtZWsr/hN1EFaln/HioMQfRZ6eB4HgwDayZxPMpS8k9
 81+kH/0tNO7iw/mGrDf7W5aGM5d84tQmlbDMvJQ36QObALfxe53et7FZWfQ3HNxc
@@ -98,6 +105,8 @@ git config --global push.default simple
 
 git checkout -b dev
 git push --set-upstream origin dev
+
+git clone -b dev https://github.com/dmshan88/cpdb.git cpdb_dev
 
 
 
