@@ -108,5 +108,9 @@ git push --set-upstream origin dev
 
 git clone -b dev https://github.com/dmshan88/cpdb.git cpdb_dev
 
+###startup run app
+/etc/rc.local
 
+sleep 10
+/usr/local/bin/mqttsub
 
