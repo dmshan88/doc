@@ -174,4 +174,6 @@ openssl req -x509 -days 5000 -config openssl.cnf -key server.key -in server.csr 
 定时任务
 crontab -e
 
+error Headers already sent
+php.ini output_buffer 
 
