@@ -177,3 +177,17 @@ crontab -e
 error Headers already sent
 php.ini output_buffer 
 
+邮件
+heirloom-mailx
+/etc/nail.rc
+set from="xxx@163.com" smtp="smtps://smtp.163.com:994"
+set smtp-auth-user="xxx@163.com" smtp-auth-password="*****"
+set smtp-auth=login
+set ssl-verify=ignore
+set nss-config-dir=/home/shan/test
+
+ssl证书
+echo -n | openssl s_client -connect smtp.163.com:994 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > 163.crt
+certutil -A -n "GeoTrust SSL CA - G3" -t "C,," -d . -i 163.crt
+certutil -A -n "GeoTrust Global CA" -t "C,," -d . -i 163.crt
+certutil -L -d .
